@@ -1,29 +1,17 @@
 <template>
   <div class="content">
-    <form role="search">
-      <div class="search-component">
-        <input
-          type="search"
-          placeholder="Search"
-          aria-label="Hurtigruten ship search"
-          class="search-component__input"
-        >
-        <button
-          type="submit"
-          class="search-component__button"
-        >
-          <img
-            src="assets/magnifying-glass.svg"
-            alt="Search icon"
-          >
-        </button>
-      </div>
-    </form>
+    <search-component></search-component>
   </div>
 </template>
 
 <script>
+import SearchComponent from './components/Search.vue';
+
 export default {
   name: 'App',
+
+  components: {
+    'search-component': SearchComponent,
+  },
 };
 </script>

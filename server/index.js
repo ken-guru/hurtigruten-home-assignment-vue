@@ -1,6 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 const ships = require('./data/ships');
 const server = express();
+
+server.use(cors());
 
 const port = 4000;
 

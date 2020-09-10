@@ -56,7 +56,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .search-component {
+  .search-component, .search-results {
     max-width: 100%;
   }
 }

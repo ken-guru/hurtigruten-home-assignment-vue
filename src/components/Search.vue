@@ -1,5 +1,8 @@
 <template>
-  <form role="search" @submit.stop.prevent="submitSearch()">
+  <form
+    @submit.stop.prevent="submitSearch()"
+    role="search"
+  >
     <div class="search-component">
       <input
         v-model="query"
@@ -10,7 +13,7 @@
       >
       <button
         v-if="inputEntered"
-        @click.prevent="resetQuery()"
+        @click.prevent="resetSearch()"
         type="reset"
         class="search-component__button"
       >
@@ -30,6 +33,15 @@
         >
       </button>
     </div>
+    <ul class="search-results">
+      <li
+        v-for="ship in ships"
+        :key="ship.id"
+        class="search-results__item"
+      >
+        {{ ship.name }}
+      </li>
+    </ul>
   </form>
 </template>
 
@@ -42,29 +54,35 @@ export default {
   data() {
     return {
       query: '',
+      ships: [],
     };
   },
 
   computed: {
     inputEntered() {
-      return this.query !== '';
+      return this.query.length !== 0;
     },
   },
 
   methods: {
-    resetQuery() {
+    resetSearch() {
       this.query = '';
+      this.ships = [];
     },
 
     submitSearch() {
-      axios
-        .get(`/api/ships/${this.query}`)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.warn(error);
-        });
+      if (this.query.length === 0) {
+        this.ships = [];
+      } else {
+        axios
+          .get(`/api/ships/${this.query}`)
+          .then((response) => {
+            this.ships = response.data;
+          })
+          .catch((error) => {
+            console.warn(error);
+          });
+      }
     },
   },
 };

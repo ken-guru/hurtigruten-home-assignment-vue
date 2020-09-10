@@ -64,6 +64,12 @@ export default {
     },
   },
 
+  watch: {
+    query() {
+      this.submitSearch();
+    },
+  },
+
   methods: {
     resetSearch() {
       this.query = '';
@@ -71,17 +77,26 @@ export default {
     },
 
     submitSearch() {
+      const sumbitDelay = 500;
+      let submitTimeout = null;
+
       if (this.query.length === 0) {
         this.ships = [];
       } else {
-        axios
-          .get(`/api/ships/${this.query}`)
-          .then((response) => {
-            this.ships = response.data;
-          })
-          .catch((error) => {
-            console.warn(error);
-          });
+        if (submitTimeout) {
+          clearTimeout(submitTimeout);
+        }
+
+        submitTimeout = setTimeout(() => {
+          axios
+            .get(`/api/ships/${this.query}`)
+            .then((response) => {
+              this.ships = response.data;
+            })
+            .catch((error) => {
+              console.warn(error);
+            });
+        }, sumbitDelay);
       }
     },
   },

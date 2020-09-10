@@ -1,5 +1,5 @@
 <template>
-  <form role="search">
+  <form role="search" @submit.stop.prevent="submitSearch()">
     <div class="search-component">
       <input
         v-model="query"
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'SearchComponent',
 
@@ -52,6 +54,17 @@ export default {
   methods: {
     resetQuery() {
       this.query = '';
+    },
+
+    submitSearch() {
+      axios
+        .get(`/api/ships/${this.query}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
     },
   },
 };

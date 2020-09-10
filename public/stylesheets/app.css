@@ -1,0 +1,27 @@
+body {
+  box-sizing: border-box;
+}
+
+.search-component {
+  max-width: 293px;
+  height: 60px;
+  border: 1px solid #666;
+  display: flex;
+  align-items: stretch;
+}
+
+.search-component__input {
+  flex-grow: 1;
+  font-size: 1rem;
+}
+
+.search-component__button {
+  flex-grow: 0;
+}
+
+.search-component__input,
+.search-component__button {
+  border: none;
+  background-color: #fff;
+  padding: 1.25rem 1rem;;
+}

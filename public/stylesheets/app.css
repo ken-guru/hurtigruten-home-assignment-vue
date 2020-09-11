@@ -13,6 +13,7 @@ body {
 }
 
 .search-component__input {
+  -webkit-appearance: textfield;
   flex-grow: 1;
   font-size: 1rem;
   padding: 0 1rem;

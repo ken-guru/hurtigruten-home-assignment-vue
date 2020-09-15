@@ -55,6 +55,8 @@ export default {
     return {
       query: '',
       ships: [],
+      submitTimeout: null,
+      sumbitDelay: 500,
     };
   },
 
@@ -77,17 +79,14 @@ export default {
     },
 
     submitSearch() {
-      const sumbitDelay = 500;
-      let submitTimeout = null;
-
       if (this.query.length === 0) {
         this.ships = [];
       } else {
-        if (submitTimeout) {
-          clearTimeout(submitTimeout);
+        if (this.submitTimeout) {
+          clearTimeout(this.submitTimeout);
         }
 
-        submitTimeout = setTimeout(() => {
+        this.submitTimeout = setTimeout(() => {
           axios
             .get(`/api/ships/${this.query}`)
             .then((response) => {
@@ -96,7 +95,7 @@ export default {
             .catch((error) => {
               console.warn(error);
             });
-        }, sumbitDelay);
+        }, this.sumbitDelay);
       }
     },
   },
